@@ -1,12 +1,13 @@
 package com.snareclick.server.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.snareclick.server.model.Click;
 
 public interface ClickService {
-    Click recordClick(String trackingCode, String ipAddress, String userAgent);
+    Click recordClick(UUID link_id, String ipAddress, String userAgent);
 
-    List<Click> getClicksbyTrackingCode(String trackingCode);
+    List<Click> getClicksbyLinkId(UUID link_id);
 
 }
