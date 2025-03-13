@@ -1,0 +1,34 @@
+backend/server/HELP.md
+backend/server/target/
+backend/server/!.mvn/wrapper/maven-wrapper.jar
+backend/server/!**/src/main/**/target/
+backend/server/!**/src/test/**/target/
+
+
+### STS ###
+backend/server/.apt_generated
+backend/server/.classpath
+backend/server/.factorypath
+backend/server/.project
+backend/server/.settings
+backend/server/.springBeans
+backend/server/.sts4-cache
+
+### IntelliJ IDEA ###
+backend/server/.idea
+backend/server/*.iws
+backend/server/*.iml
+backend/server/*.ipr
+
+### NetBeans ###
+backend/server//nbproject/private/
+backend/server//nbbuild/
+backend/server//dist/
+backend/server//nbdist/
+backend/server//.nb-gradle/
+backend/server/build/
+backend/server/!**/src/main/**/build/
+backend/server/!**/src/test/**/build/
+
+### VS Code ###
+backend/server/.vscode/
