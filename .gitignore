@@ -32,3 +32,7 @@ backend/server/!**/src/test/**/build/
 
 ### VS Code ###
 backend/server/.vscode/
+.vscode/
+
+### Application Properties ###
+backend/server/src/main/resources/application.properties
