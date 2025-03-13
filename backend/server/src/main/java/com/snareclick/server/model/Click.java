@@ -20,7 +20,11 @@ public class Click {
     private Long id;
 
     private Date createdAt;
-    private String trackingCode;
+
+    @ManyToOne
+    @JoinColumn(name = "link_id", nullable = false)
+    private Link link;
+
     private String ipAddress;
     private String location;
     private String userAgent;

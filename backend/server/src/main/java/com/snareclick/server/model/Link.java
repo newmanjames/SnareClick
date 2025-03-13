@@ -1,5 +1,7 @@
 package com.snareclick.server.model;
 
+import java.util.List;
+import java.util.UUID;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,10 +17,13 @@ import lombok.Setter;
 public class Link {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
+    @Column(nullable = false)
     private String redirectURL;
-    private String trackingCode;
+
+    @OneToMany(mappedBy = "link", cascade = CascadeType.ALL)
+    private List<Click> clicks;
 
 }
