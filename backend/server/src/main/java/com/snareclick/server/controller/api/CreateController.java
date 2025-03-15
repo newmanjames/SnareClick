@@ -21,7 +21,7 @@ public class CreateController {
         this.linkService = linkService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<LinkDTO> createLink(@RequestBody Link link) {
 
         String redirectURL = link.getRedirectURL();
