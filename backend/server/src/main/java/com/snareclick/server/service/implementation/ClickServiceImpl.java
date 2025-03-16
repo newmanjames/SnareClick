@@ -27,38 +27,29 @@ public class ClickServiceImpl implements ClickService {
 
     @Override
     public Click recordClick(UUID link_id, String ipAddress, String userAgent) {
-        Optional<Link> optionalLink = linkRepository.findById(link_id);
+        return linkRepository.findById(link_id)
+                .map(link -> {
+                    // TODO: implement location by IP
+                    String location = null;
 
-        if (optionalLink.isPresent()) {
-
-            Link link = optionalLink.get();
-
-            // TODO: implement location by IP
-            String location = null;
-
-            Click click = new Click();
-            click.setLink(link);
-            click.setIpAddress(ipAddress);
-            click.setLocation(location);
-            click.setCreatedAt(new Date());
-            clickRepository.save(click);
-            return click;
-
-        } else {
-            throw new LinkNotFoundException("Link with ID " + link_id + " not found");
-        }
+                    Click click = new Click();
+                    click.setLink(link);
+                    click.setIpAddress(ipAddress);
+                    click.setUserAgent(userAgent);
+                    click.setLocation(location);
+                    click.setCreatedAt(new Date());
+                    clickRepository.save(click);
+                    return click;
+                })
+                .orElseThrow(() -> new LinkNotFoundException(link_id));
     }
 
     @Override
     public List<Click> getClicksbyLinkId(UUID link_id) {
-        Optional<Link> optionalLink = linkRepository.findById(link_id);
+        return linkRepository.findById(link_id)
+                .map(link -> clickRepository.findByLink(link))
+                .orElseThrow(() -> new LinkNotFoundException(link_id));
 
-        if (optionalLink.isPresent()) {
-            // get all clicks from provided link
-            return clickRepository.findByLink(optionalLink.get());
-        } else {
-            throw new LinkNotFoundException("Link with ID " + link_id + " not found");
-        }
     }
 
 }
