@@ -17,8 +17,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
+import { createLink } from "@/api/linkService"
+import { redirect } from "react-router"
+
 const formSchema = z.object({
-    redirectURL: z.string().url("Please enter a valid URL"),
+    originalLink: z.string().url("Please enter a valid URL"),
 })
 
 
@@ -27,15 +30,21 @@ export default function CreateLinkForm() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            redirectURL: "",
+            originalLink: "",
         },
     })
 
-    // submit handler
+    // submit handler (type safe and validated)
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
+        try {
+            console.log(values)
+            const data = createLink(values.originalLink);
+            redirect("/track");
+
+        } catch (error) {
+            console.log("Error creating link", error);
+        }
+
     }
 
     return (
@@ -44,7 +53,7 @@ export default function CreateLinkForm() {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <FormField
                         control={form.control}
-                        name="redirectURL"
+                        name="originalLink"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Redirect URL</FormLabel>
