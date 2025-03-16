@@ -8,6 +8,8 @@ import com.snareclick.server.model.Link;
 public interface LinkService {
     Link createLink(String redirectURL);
 
+    Link createLink(Link link);
+
     Optional<Link> findByID(UUID id);
 
 }

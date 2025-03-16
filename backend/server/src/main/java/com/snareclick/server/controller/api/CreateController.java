@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.snareclick.server.dto.LinkDTO;
 import com.snareclick.server.model.Link;
 import com.snareclick.server.service.ClickService;
 import com.snareclick.server.service.LinkService;
@@ -22,14 +21,8 @@ public class CreateController {
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<LinkDTO> createLink(@RequestBody Link link) {
-
-        String redirectURL = link.getRedirectURL();
-
-        Link savedLink = linkService.createLink(redirectURL);
-
-        return ResponseEntity.ok(new LinkDTO(savedLink.getId()));
-
+    public ResponseEntity<Link> createLink(@RequestBody Link link) {
+        return ResponseEntity.ok(linkService.createLink(link));
     }
 
 }

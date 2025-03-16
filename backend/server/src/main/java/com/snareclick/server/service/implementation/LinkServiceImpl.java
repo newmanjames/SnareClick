@@ -36,4 +36,9 @@ public class LinkServiceImpl implements LinkService {
         return linkRepository.findById(id);
     }
 
+    @Override
+    public Link createLink(Link link) {
+        return linkRepository.save(link);
+    }
+
 }
