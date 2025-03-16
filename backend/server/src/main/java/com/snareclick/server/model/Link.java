@@ -1,8 +1,14 @@
 package com.snareclick.server.model;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import jakarta.persistence.*;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,13 +23,12 @@ import lombok.Setter;
 public class Link {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private String id;
 
     @Column(nullable = false)
     private String redirectURL;
 
     @OneToMany(mappedBy = "link", cascade = CascadeType.ALL)
-    private List<Click> clicks;
+    private List<Click> clicks = new ArrayList<>();
 
 }

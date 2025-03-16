@@ -2,16 +2,16 @@ package com.snareclick.server.service.implementation;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+
+import com.snareclick.server.dto.ClickDTO;
+import com.snareclick.server.exception.LinkNotFoundException;
 import com.snareclick.server.model.Click;
-import com.snareclick.server.model.Link;
 import com.snareclick.server.repository.ClickRepository;
 import com.snareclick.server.repository.LinkRepository;
 import com.snareclick.server.service.ClickService;
-import com.snareclick.server.exception.LinkNotFoundException;
 
 @Service
 public class ClickServiceImpl implements ClickService {
@@ -26,7 +26,7 @@ public class ClickServiceImpl implements ClickService {
     }
 
     @Override
-    public Click recordClick(UUID link_id, String ipAddress, String userAgent) {
+    public ClickDTO recordClick(String link_id, String ipAddress, String userAgent) {
         return linkRepository.findById(link_id)
                 .map(link -> {
                     // TODO: implement location by IP
@@ -38,16 +38,19 @@ public class ClickServiceImpl implements ClickService {
                     click.setUserAgent(userAgent);
                     click.setLocation(location);
                     click.setCreatedAt(new Date());
-                    clickRepository.save(click);
-                    return click;
+                    click = clickRepository.save(click);
+
+                    return new ClickDTO(click);
                 })
                 .orElseThrow(() -> new LinkNotFoundException(link_id));
     }
 
     @Override
-    public List<Click> getClicksbyLinkId(UUID link_id) {
+    public List<ClickDTO> getClicksbyLinkId(String link_id) {
         return linkRepository.findById(link_id)
-                .map(link -> clickRepository.findByLink(link))
+                .map(link -> clickRepository.findByLink(link).stream()
+                        .map(click -> new ClickDTO(click))
+                        .collect(Collectors.toList()))
                 .orElseThrow(() -> new LinkNotFoundException(link_id));
 
     }

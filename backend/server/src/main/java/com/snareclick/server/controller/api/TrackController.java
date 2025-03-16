@@ -1,15 +1,12 @@
 package com.snareclick.server.controller.api;
 
-import java.util.Optional;
-import java.util.UUID;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.snareclick.server.model.Link;
+import com.snareclick.server.dto.LinkDTO;
 import com.snareclick.server.service.LinkService;
 
 @RestController
@@ -22,8 +19,8 @@ public class TrackController {
         this.linkService = linkService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Link> getMethodName(@PathVariable UUID id) {
+    @GetMapping("/{id:^[0-9a-zA-Z_-]{8}$}")
+    public ResponseEntity<LinkDTO> getMethodName(@PathVariable String id) {
         return linkService.findByID(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
