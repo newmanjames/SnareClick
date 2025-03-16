@@ -5,7 +5,7 @@ const createLink = async (originalLink: string) => {
     return response.data;
 };
 
-const trackLink = async (trackingCode: string) => {
+const trackLink = async (trackingCode: string | undefined) => {
     const response = await axiosInstance.get(`/track/${trackingCode}`);
     return response.data
 };

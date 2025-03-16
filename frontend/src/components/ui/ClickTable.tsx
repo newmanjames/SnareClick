@@ -5,25 +5,16 @@ import {
     TableCell,
     TableHead,
     TableHeader,
-    TableRow,
+    TableRow
 } from "@/components/ui/table"
 
-interface Click {
-    createdAt: string;
-    ipAddress: string;
-    location: string | null;
-    userAgent: string;
-}
+import { Clicks } from "@/interfaces/Clicks"
 
 
-interface ClicksProps {
-    clicks: Click[];
-}
-
-
-export default function ClickTable({ clicks }: ClicksProps) {
+export default function ClickTable({ clicks }: Clicks) {
     return (
         <Table>
+            {clicks.length === 0 && <TableCaption>No activity yet. Check back later!</TableCaption>}
             <TableHeader>
                 <TableRow>
                     <TableHead>Date</TableHead>
@@ -33,14 +24,15 @@ export default function ClickTable({ clicks }: ClicksProps) {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {clicks.map((click) => (
-                    <TableRow>
-                        <TableCell>{click.createdAt}</TableCell>
-                        <TableCell>{click.ipAddress}</TableCell>
-                        <TableCell>{click.location}</TableCell>
-                        <TableCell className="w-1/2 whitespace-normal" >{click.userAgent}</TableCell>
-                    </TableRow>
-                ))}
+                {
+                    clicks.map((click) => (
+                        <TableRow>
+                            <TableCell>{click.createdAt}</TableCell>
+                            <TableCell>{click.ipAddress}</TableCell>
+                            <TableCell>{click.location}</TableCell>
+                            <TableCell className="w-1/2 whitespace-normal" >{click.userAgent}</TableCell>
+                        </TableRow>
+                    ))}
 
             </TableBody>
         </Table>

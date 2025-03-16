@@ -1,7 +1,6 @@
 
 import { z } from "zod"
 
-import { P } from "@/components/ui/Typography"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
@@ -18,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 
 import { createLink } from "@/api/linkService"
-import { redirect } from "react-router"
+import { useNavigate } from "react-router"
 
 const formSchema = z.object({
     originalLink: z.string().url("Please enter a valid URL"),
@@ -26,6 +25,8 @@ const formSchema = z.object({
 
 
 export default function CreateLinkForm() {
+    const navigate = useNavigate();
+
     // form definition
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -35,11 +36,11 @@ export default function CreateLinkForm() {
     })
 
     // submit handler (type safe and validated)
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
             console.log(values)
-            const data = createLink(values.originalLink);
-            redirect("/track");
+            const link = await createLink(values.originalLink);
+            navigate(`/track/${link.id}`);
 
         } catch (error) {
             console.log("Error creating link", error);
@@ -61,7 +62,7 @@ export default function CreateLinkForm() {
                                     <Input placeholder="Ex. https://snareclick.com" {...field} />
                                 </FormControl>
                                 <FormDescription>
-                                    <P>This is the destination your link will redirect to.</P>
+                                    This is the destination your link will redirect to.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>

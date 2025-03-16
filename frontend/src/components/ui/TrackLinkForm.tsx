@@ -1,7 +1,6 @@
 
 import { z } from "zod"
 
-import { P } from "@/components/ui/Typography"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
@@ -52,7 +51,7 @@ export default function CreateLinkForm() {
                                     <Input placeholder="Ex. A1B2C3D4" {...field} />
                                 </FormControl>
                                 <FormDescription>
-                                    <P>This is your link's 8-digit tracking code.</P>
+                                    This is your link's 8-digit tracking code.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>

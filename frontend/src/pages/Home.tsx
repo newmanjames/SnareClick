@@ -1,6 +1,6 @@
 import CreateLinkForm from "@/components/ui/CreateLinkForm";
 import TrackLinkForm from "@/components/ui/TrackLinkForm";
-import { H1, H2, H3, P } from "@/components/ui/Typography";
+import { H1, H2, P } from "@/components/ui/Typography";
 
 export default function Home() {
     return (
