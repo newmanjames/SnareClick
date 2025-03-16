@@ -38,7 +38,7 @@ public class RedirectController {
                     clickService.recordClick(link_id, ipAddress, userAgent);
                     return ResponseEntity
                             .status(HttpStatus.FOUND)
-                            .location(URI.create(link.getRedirectURL()))
+                            .location(URI.create(link.getOriginalLink()))
                             .build();
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());

@@ -4,6 +4,7 @@ import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.snareclick.server.dto.LinkDTO;
@@ -16,16 +17,22 @@ public class LinkServiceImpl implements LinkService {
 
     private final LinkRepository linkRepository;
 
+    @Value("${app.base-url}")
+    private String baseUrl;
+
     LinkServiceImpl(LinkRepository linkRepository) {
         this.linkRepository = linkRepository;
+
     }
 
     @Override
-    public LinkDTO createLink(String redirectURL) {
+    public LinkDTO createLink(String originalLink) {
         // create new link and set URL
         Link link = new Link();
-        link.setId(generateUniqueId());
-        link.setRedirectURL(redirectURL);
+        String id = generateUniqueId();
+        link.setId(id);
+        link.setOriginalLink(originalLink);
+        link.setCreatedLink(baseUrl + "/" + id);
 
         // save link to database
         link = linkRepository.save(link);
@@ -41,7 +48,9 @@ public class LinkServiceImpl implements LinkService {
 
     @Override
     public LinkDTO createLink(Link link) {
-        link.setId(generateUniqueId());
+        String id = generateUniqueId();
+        link.setId(id);
+        link.setCreatedLink(baseUrl + "/" + id);
         link = linkRepository.save(link);
 
         return new LinkDTO(link);

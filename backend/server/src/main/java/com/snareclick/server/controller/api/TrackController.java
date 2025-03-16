@@ -20,7 +20,7 @@ public class TrackController {
     }
 
     @GetMapping("/{id:^[0-9a-zA-Z_-]{8}$}")
-    public ResponseEntity<LinkDTO> getMethodName(@PathVariable String id) {
+    public ResponseEntity<LinkDTO> getLink(@PathVariable String id) {
         return linkService.findByID(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

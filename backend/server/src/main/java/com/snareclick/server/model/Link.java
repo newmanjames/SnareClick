@@ -26,7 +26,10 @@ public class Link {
     private String id;
 
     @Column(nullable = false)
-    private String redirectURL;
+    private String originalLink;
+
+    @Column(nullable = false)
+    private String createdLink;
 
     @OneToMany(mappedBy = "link", cascade = CascadeType.ALL)
     private List<Click> clicks = new ArrayList<>();

@@ -16,12 +16,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LinkDTO {
     private String id;
-    private String redirectURL;
+    private String originalLink;
+    private String createdLink;
     private List<ClickDTO> clicks;
 
     public LinkDTO(Link link) {
         this.id = link.getId();
-        this.redirectURL = link.getRedirectURL();
+        this.originalLink = link.getOriginalLink();
+        this.createdLink = link.getCreatedLink();
         this.clicks = link.getClicks().stream().map(click -> new ClickDTO(click)).collect(Collectors.toList());
     }
 }

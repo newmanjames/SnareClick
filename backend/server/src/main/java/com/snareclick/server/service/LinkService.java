@@ -7,7 +7,7 @@ import com.snareclick.server.model.Link;
 
 public interface LinkService {
 
-    LinkDTO createLink(String redirectURL);
+    LinkDTO createLink(String originalLink);
 
     LinkDTO createLink(Link link);
 
