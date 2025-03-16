@@ -24,15 +24,9 @@ public class TrackController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Link> getMethodName(@PathVariable UUID id) {
-
-        Optional<Link> optionalLink = linkService.findByID(id);
-
-        if (optionalLink.isPresent()) {
-            Link link = optionalLink.get();
-            return ResponseEntity.ok(link);
-        }
-        return ResponseEntity.notFound().build();
-
+        return linkService.findByID(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }
