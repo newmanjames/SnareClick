@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from "react-router"
 import { ThemeProvider } from "@/components/theme-provider"
-import './App.css'
+import '../styles.css'
 import Home from './pages/Home.tsx'
 import Track from './pages/Track.tsx'
 import NotFound from './pages/errors/NotFound.tsx'

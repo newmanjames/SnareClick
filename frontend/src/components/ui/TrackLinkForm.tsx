@@ -15,6 +15,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useNavigate } from "react-router"
 
 const formSchema = z.object({
     trackingCode: z.string().length(8, "Tracking code must be exactly 8 characters long."),
@@ -22,6 +23,7 @@ const formSchema = z.object({
 
 
 export default function CreateLinkForm() {
+    const navigate = useNavigate();
     // form definition
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -32,9 +34,7 @@ export default function CreateLinkForm() {
 
     // submit handler (already type safe and validated)
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
+        navigate(`/track/${values.trackingCode}`);
     }
 
     return (
