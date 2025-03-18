@@ -1,7 +1,5 @@
 package com.snareclick.server.dto;
 
-import java.util.Date;
-
 import com.snareclick.server.model.Click;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ClickDTO {
 
-    private Date createdAt;
+    private String createdAt;
     private String ipAddress;
     private String location;
     private String userAgent;
