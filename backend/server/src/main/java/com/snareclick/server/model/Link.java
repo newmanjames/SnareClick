@@ -3,6 +3,8 @@ package com.snareclick.server.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.validator.constraints.URL;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,9 +27,11 @@ public class Link {
     @Id
     private String id;
 
+    @URL
     @Column(nullable = false)
     private String originalLink;
 
+    @URL
     @Column(nullable = false)
     private String createdLink;
 

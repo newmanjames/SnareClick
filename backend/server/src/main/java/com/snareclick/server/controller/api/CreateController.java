@@ -1,6 +1,7 @@
 package com.snareclick.server.controller.api;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,12 @@ public class CreateController {
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<LinkDTO> createLink(@RequestBody Link link) {
-        return ResponseEntity.ok(linkService.createLink(link));
+        try {
+            return ResponseEntity.ok(linkService.createLink(link));
+
+        } catch (TransactionSystemException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }
