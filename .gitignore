@@ -62,4 +62,4 @@ frontend/*.ntvs*
 frontend/*.njsproj
 frontend/*.sln
 frontend/*.sw?
-backend/server/logs/spring.log
+backend/server/logs/*
