@@ -31,7 +31,7 @@ public class RedirectController {
     public ResponseEntity<Object> redirect(HttpServletRequest request, @PathVariable String link_id) {
 
         String userAgent = request.getHeader("user-agent");
-        String ipAddress = request.getRemoteAddr();
+        String ipAddress = request.getHeader("X-Forwarded-For");
 
         return linkService.findByID(link_id)
                 .map(link -> {
